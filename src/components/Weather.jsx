@@ -38,13 +38,18 @@ const Weather =()=> {
     useEffect(()=>{
         search("London");
     },[])
-
+    const handleSearch= (event)=>{
+        if(event.key==='Enter' || event.type==='click'){
+            search(inputRef.current.value);
+            inputRef.current.value='';
+        }
+    }
   return (
     <div className='container'>
         <div className="weather">
             <div className="search-bar">
-                <input ref={inputRef} type="text" placeholder='Search Location' />
-                <img className="search-img" src={search_icon} onClick={()=>{search(inputRef.current.value)}}alt="" />
+                <input ref={inputRef} type="text" placeholder='Search Location' onKeyDown={handleSearch} />
+                <img className="search-img" src={search_icon} onClick={handleSearch}alt="" />
             </div>
             {weatherData? <>
             <img src={weatherData.icon} alt="" className='weather-icon'/>
